@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - CareerAI</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Navigation -->
+        <nav class="dashboard-nav">
+            <div class="nav-container">
+                <div class="logo">
+                    <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <linearGradient id="dashLogoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#6366F1"/>
+                                <stop offset="50%" style="stop-color:#EC4899"/>
+                                <stop offset="100%" style="stop-color:#F59E0B"/>
+                            </linearGradient>
+                        </defs>
+                        <path d="M18 3 L18 18 L30 12 Z" fill="url(#dashLogoGrad)" opacity="0.8"/>
+                        <circle cx="18" cy="18" r="15" stroke="url(#dashLogoGrad)" stroke-width="2.5" fill="none"/>
+                        <circle cx="18" cy="18" r="3" fill="url(#dashLogoGrad)"/>
+                        <path d="M18 18 L24 24" stroke="url(#dashLogoGrad)" stroke-width="2.5" stroke-linecap="round"/>
+                    </svg>
+                    <span class="logo-text">CareerAI</span>
+                </div>
+                <div class="nav-links">
+                    <a href="{{ url_for('dashboard') }}" class="active">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="3" y="3" width="7" height="7"></rect>
+                            <rect x="14" y="3" width="7" height="7"></rect>
+                            <rect x="14" y="14" width="7" height="7"></rect>
+                            <rect x="3" y="14" width="7" height="7"></rect>
+                        </svg>
+                        Dashboard
+                    </a>
+                    <a href="{{ url_for('profile') }}">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="12" cy="7" r="4"></circle>
+                        </svg>
+                        Profile
+                    </a>
+                    <a href="{{ url_for('logout') }}" class="btn-logout">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                            <polyline points="16 17 21 12 16 7"></polyline>
+                            <line x1="21" y1="12" x2="9" y2="12"></line>
+                        </svg>
+                        Logout
+                    </a>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <div class="dashboard-content">
+            <!-- Welcome Section -->
+            <div class="welcome-section">
+                <div class="welcome-badge">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                        <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                    </svg>
+                    <span>Account Active</span>
+                </div>
+                <h1>Welcome back, {{ current_user.username }}!</h1>
+                <p>Ready to discover your perfect career path?</p>
+            </div>
+
+            <!-- Quick Stats -->
+            <div class="quick-stats">
+                <div class="stat-box">
+                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#6366F1" stroke-width="2">
+                        <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
+                    </svg>
+                    <div class="stat-info">
+                        <h3>{{ current_user.assessments|length }}</h3>
+                        <p>Assessments Completed</p>
+                    </div>
+                </div>
+                
+                <div class="stat-box">
+                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#EC4899" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <polyline points="12 6 12 12 16 14"></polyline>
+                    </svg>
+                    <div class="stat-info">
+                        <h3>{{ (current_user.created_at.now() - current_user.created_at).days }}</h3>
+                        <p>Days as Member</p>
+                    </div>
+                </div>
+                
+                <div class="stat-box">
+                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#F59E0B" stroke-width="2">
+                        <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
+                        <path d="M2 17l10 5 10-5M2 12l10 5 10-5"></path>
+                    </svg>
+                    <div class="stat-info">
+                        <h3>0</h3>
+                        <p>Skills Tracked</p>
+                    </div>
+                </div>
+                
+                <div class="stat-box">
+                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2">
+                        <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+                    </svg>
+                    <div class="stat-info">
+                        <h3>0%</h3>
+                        <p>Progress</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main Actions Grid -->
+            <div class="dashboard-grid">
+                <!-- Start Assessment Card -->
+                <div class="dashboard-card card-primary">
+                    <div class="card-header">
+                        <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                            <polyline points="14 2 14 8 20 8"></polyline>
+                            <line x1="16" y1="13" x2="8" y2="13"></line>
+                            <line x1="16" y1="17" x2="8" y2="17"></line>
+                            <polyline points="10 9 9 9 8 9"></polyline>
+                        </svg>
+                    </div>
+                    <h3>Start Career Assessment</h3>
+                    <p>Answer 15 personalized questions to discover careers that match your skills, interests, and aspirations.</p>
+                    <div class="card-features">
+                        <span>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="20 6 9 17 4 12"></polyline>
+                            </svg>
+                            15 Smart Questions
+                        </span>
+                        <span>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="20 6 9 17 4 12"></polyline>
+                            </svg>
+                            ~10 Minutes
+                        </span>
+                        <span>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="20 6 9 17 4 12"></polyline>
+                            </svg>
+                            Auto-Save Progress
+                        </span>
+                    </div>
+                    <a href="{{ url_for('assessment_start') }}" class="btn-card">
+
+                        Begin Assessment
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                            <polyline points="12 5 19 12 12 19"></polyline>
+                        </svg>
+                    </a>
+                </div>
+
+                <!-- View Results Card -->
+                <div class="dashboard-card card-secondary">
+                    <div class="card-header">
+                        <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="12" y1="1" x2="12" y2="23"></line>
+                            <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+                        </svg>
+                    </div>
+                    <h3>Your Career Matches</h3>
+                    <p>View personalized career recommendations, salary insights, and growth opportunities based on your assessment.</p>
+                    <div class="card-status">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#F59E0B" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <line x1="12" y1="8" x2="12" y2="12"></line>
+                            <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                        </svg>
+                        <span>Complete assessment to unlock</span>
+                    </div>
+                    <a href="#" class="btn-card disabled">
+                        View Results
+                    </a>
+                </div>
+
+                <!-- Skill Roadmap Card -->
+                <div class="dashboard-card card-accent">
+                    <div class="card-header">
+                        <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+                            <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+                            <line x1="12" y1="22.08" x2="12" y2="12"></line>
+                        </svg>
+                    </div>
+                    <h3>Learning Roadmap</h3>
+                    <p>Get step-by-step guidance with courses, certifications, and resources to achieve your career goals.</p>
+                    <div class="card-status">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#F59E0B" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <line x1="12" y1="8" x2="12" y2="12"></line>
+                            <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                        </svg>
+                        <span>Available after results</span>
+                    </div>
+                    <a href="#" class="btn-card disabled">
+                        View Roadmap
+                    </a>
+                </div>
+
+                <!-- AI Career Coach Card -->
+                <div class="dashboard-card card-success">
+                    <div class="card-header">
+                        <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                            <line x1="9" y1="10" x2="15" y2="10"></line>
+                            <line x1="9" y1="14" x2="13" y2="14"></line>
+                        </svg>
+                    </div>
+                    <h3>AI Career Coach</h3>
+                    <p>Chat with our AI assistant to get answers about your career path, skills, and next steps.</p>
+                    <div class="card-status">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#F59E0B" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <line x1="12" y1="8" x2="12" y2="12"></line>
+                            <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                        </svg>
+                        <span>Unlocks with results</span>
+                    </div>
+                    <a href="#" class="btn-card disabled">
+                        Start Chat
+                    </a>
+                </div>
+            </div>
+
+            <!-- Recent Activity / Tips Section -->
+            <div class="dashboard-sections">
+                <div class="tips-section">
+                    <div class="section-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+                            <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                        </svg>
+                    </div>
+                    <div>
+                        <h3>Getting Started Tips</h3>
+                        <ul class="tips-list">
+                            <li>
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2">
+                                    <polyline points="20 6 9 17 4 12"></polyline>
+                                </svg>
+                                Find a quiet space for your assessment
+                            </li>
+                            <li>
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2">
+                                    <polyline points="20 6 9 17 4 12"></polyline>
+                                </svg>
+                                Answer honestly for best results
+                            </li>
+                            <li>
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2">
+                                    <polyline points="20 6 9 17 4 12"></polyline>
+                                </svg>
+                                Progress is saved automatically
+                            </li>
+                            <li>
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2">
+                                    <polyline points="20 6 9 17 4 12"></polyline>
+                                </svg>
+                                Results are ready instantly
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="next-steps-section">
+                    <div class="section-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+                        </svg>
+                    </div>
+                    <div>
+                        <h3>What Happens Next?</h3>
+                        <div class="next-steps-timeline">
+                            <div class="timeline-item">
+                                <span class="timeline-dot">1</span>
+                                <div>
+                                    <strong>Complete Assessment</strong>
+                                    <p>Takes about 10 minutes</p>
+                                </div>
+                            </div>
+                            <div class="timeline-item">
+                                <span class="timeline-dot">2</span>
+                                <div>
+                                    <strong>AI Analysis</strong>
+                                    <p>Instant processing</p>
+                                </div>
+                            </div>
+                            <div class="timeline-item">
+                                <span class="timeline-dot">3</span>
+                                <div>
+                                    <strong>Get Recommendations</strong>
+                                    <p>View career matches</p>
+                                </div>
+                            </div>
+                            <div class="timeline-item">
+                                <span class="timeline-dot">4</span>
+                                <div>
+                                    <strong>Follow Your Path</strong>
+                                    <p>Access roadmaps & resources</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Phase Notice -->
+            <div class="phase-notice">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <line x1="12" y1="16" x2="12" y2="12"></line>
+                    <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                </svg>
+                <div>
+                    <strong>Phase 2 Complete!</strong>
+                    <p>Authentication system working. Phase 3 will add the interactive questionnaire!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>

@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Processing Your Assessment - CareerAI</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <style>
+        .loading-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .loading-content {
+            text-align: center;
+            z-index: 10;
+            max-width: 600px;
+            padding: 2rem;
+        }
+
+        .loading-icon {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 2rem;
+            position: relative;
+        }
+
+        .spinner {
+            width: 120px;
+            height: 120px;
+            border: 8px solid rgba(255, 255, 255, 0.2);
+            border-top: 8px solid white;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .loading-content h1 {
+            color: white;
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+        }
+
+        .loading-content p {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1.25rem;
+            margin-bottom: 3rem;
+        }
+
+        .loading-steps {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .loading-step {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            color: white;
+            opacity: 0.5;
+            transition: all 0.5s ease;
+        }
+
+        .loading-step.active {
+            opacity: 1;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+        }
+
+        .loading-step.completed {
+            opacity: 1;
+        }
+
+        .step-icon {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .loading-step.active .step-icon {
+            background: white;
+            color: #667eea;
+        }
+
+        .loading-step.completed .step-icon {
+            background: #10b981;
+        }
+
+        .step-text {
+            text-align: left;
+            flex: 1;
+        }
+
+        .step-text h3 {
+            font-size: 1.125rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .step-text p {
+            font-size: 0.875rem;
+            margin: 0;
+            opacity: 0.8;
+        }
+
+        /* Floating particles */
+        .particle {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: white;
+            border-radius: 50%;
+            opacity: 0.3;
+            animation: float 6s infinite ease-in-out;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) translateX(0); }
+            50% { transform: translateY(-100px) translateX(50px); }
+        }
+
+        .particle:nth-child(1) { left: 10%; top: 20%; animation-delay: 0s; }
+        .particle:nth-child(2) { left: 80%; top: 30%; animation-delay: 1s; }
+        .particle:nth-child(3) { left: 20%; top: 70%; animation-delay: 2s; }
+        .particle:nth-child(4) { left: 70%; top: 60%; animation-delay: 3s; }
+        .particle:nth-child(5) { left: 50%; top: 50%; animation-delay: 4s; }
+    </style>
+</head>
+<body>
+    <div class="loading-container">
+        <!-- Floating particles -->
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+
+        <div class="loading-content">
+            <div class="loading-icon">
+                <div class="spinner"></div>
+            </div>
+
+            <h1>Analyzing Your Assessment</h1>
+            <p>Our AI is processing your responses to create personalized career recommendations...</p>
+
+            <div class="loading-steps">
+                <div class="loading-step active" id="step1">
+                    <div class="step-icon">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                            <polyline points="14 2 14 8 20 8"></polyline>
+                        </svg>
+                    </div>
+                    <div class="step-text">
+                        <h3>Analyzing Responses</h3>
+                        <p>Processing your interests and preferences</p>
+                    </div>
+                </div>
+
+                <div class="loading-step" id="step2">
+                    <div class="step-icon">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <path d="m21 21-4.35-4.35"></path>
+                        </svg>
+                    </div>
+                    <div class="step-text">
+                        <h3>Matching Careers</h3>
+                        <p>Finding careers aligned with your profile</p>
+                    </div>
+                </div>
+
+                <div class="loading-step" id="step3">
+                    <div class="step-icon">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+                        </svg>
+                    </div>
+                    <div class="step-text">
+                        <h3>Building Roadmap</h3>
+                        <p>Creating your personalized learning path</p>
+                    </div>
+                </div>
+
+                <div class="loading-step" id="step4">
+                    <div class="step-icon">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                    </div>
+                    <div class="step-text">
+                        <h3>Finalizing Results</h3>
+                        <p>Preparing your comprehensive report</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Simulate processing steps
+        const steps = ['step1', 'step2', 'step3', 'step4'];
+        let currentStep = 0;
+
+        function updateStep() {
+            // Mark current as completed
+            if (currentStep > 0) {
+                document.getElementById(steps[currentStep - 1]).classList.remove('active');
+                document.getElementById(steps[currentStep - 1]).classList.add('completed');
+            }
+
+            // Activate next step
+            if (currentStep < steps.length) {
+                document.getElementById(steps[currentStep]).classList.add('active');
+                currentStep++;
+            }
+
+            // After all steps, redirect to results
+            if (currentStep >= steps.length) {
+                setTimeout(() => {
+                    window.location.href = "{{ url_for('assessment_results', assessment_id=assessment_id) }}";
+                }, 1500);
+            } else {
+                setTimeout(updateStep, 2000);
+            }
+        }
+
+        // Start the animation
+        setTimeout(updateStep, 2000);
+    </script>
+</body>
+</html>

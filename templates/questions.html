@@ -1,0 +1,963 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Career Assessment - CareerAI</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="assessment-container">
+        <!-- Progress Header -->
+        <div class="assessment-header">
+            <div class="header-content">
+                <a href="{{ url_for('dashboard') }}" class="back-btn">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="19" y1="12" x2="5" y2="12"></line>
+                        <polyline points="12 19 5 12 12 5"></polyline>
+                    </svg>
+                    Back to Dashboard
+                </a>
+                <div class="logo-small">
+                    <svg width="32" height="32" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <linearGradient id="qLogoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#6366F1"/>
+                                <stop offset="50%" style="stop-color:#EC4899"/>
+                                <stop offset="100%" style="stop-color:#F59E0B"/>
+                            </linearGradient>
+                        </defs>
+                        <path d="M18 3 L18 18 L30 12 Z" fill="url(#qLogoGrad)" opacity="0.8"/>
+                        <circle cx="18" cy="18" r="15" stroke="url(#qLogoGrad)" stroke-width="2.5" fill="none"/>
+                    </svg>
+                </div>
+            </div>
+            
+            <!-- Progress Bar -->
+            <div class="progress-section">
+                <div class="progress-info">
+                    <span class="progress-text">Question <span id="currentQuestion">1</span> of 15</span>
+                    <span class="progress-percent"><span id="progressPercent">7</span>%</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressBar" style="width: 7%"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Questions Container -->
+        <div class="questions-wrapper">
+            <form id="assessmentForm" method="POST" action="{{ url_for('assessment_questions', assessment_id=assessment.id) }}">
+                
+                <!-- Question 1: Interests (RIASEC) -->
+                <div class="question-card active" data-question="1">
+                    <div class="question-header">
+                        <span class="question-number">Question 1</span>
+                        <h2>Which activities excite you most?</h2>
+                        <p class="question-subtitle">Select all that apply - choose as many as resonate with you</p>
+                    </div>
+                    <div class="options-grid checkbox-grid">
+                        <label class="option-card">
+                            <input type="checkbox" name="q1_interests" value="realistic">
+                            <div class="option-content">
+                                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path>
+                                </svg>
+                                <h4>Building & Fixing</h4>
+                                <p>Working with tools and hands-on projects</p>
+                            </div>
+                        </label>
+                        <label class="option-card">
+                            <input type="checkbox" name="q1_interests" value="investigative">
+                            <div class="option-content">
+                                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="11" cy="11" r="8"></circle>
+                                    <path d="m21 21-4.35-4.35"></path>
+                                </svg>
+                                <h4>Problem Solving</h4>
+                                <p>Analyzing data and researching solutions</p>
+                            </div>
+                        </label>
+                        <label class="option-card">
+                            <input type="checkbox" name="q1_interests" value="artistic">
+                            <div class="option-content">
+                                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M12 19l7-7 3 3-7 7-3-3z"></path>
+                                    <path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"></path>
+                                    <path d="M2 2l7.586 7.586"></path>
+                                    <circle cx="11" cy="11" r="2"></circle>
+                                </svg>
+                                <h4>Creating & Designing</h4>
+                                <p>Art, music, and creative expression</p>
+                            </div>
+                        </label>
+                        <label class="option-card">
+                            <input type="checkbox" name="q1_interests" value="social">
+                            <div class="option-content">
+                                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                                    <circle cx="9" cy="7" r="4"></circle>
+                                    <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                                    <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                                </svg>
+                                <h4>Helping People</h4>
+                                <p>Teaching, counseling, and supporting others</p>
+                            </div>
+                        </label>
+                        <label class="option-card">
+                            <input type="checkbox" name="q1_interests" value="enterprising">
+                            <div class="option-content">
+                                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+                                </svg>
+                                <h4>Leading & Persuading</h4>
+                                <p>Managing projects and influencing others</p>
+                            </div>
+                        </label>
+                        <label class="option-card">
+                            <input type="checkbox" name="q1_interests" value="conventional">
+                            <div class="option-content">
+                                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                                    <line x1="9" y1="9" x2="15" y2="9"></line>
+                                    <line x1="9" y1="15" x2="15" y2="15"></line>
+                                </svg>
+                                <h4>Organizing Systems</h4>
+                                <p>Managing details and structured tasks</p>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Question 2: Work Environment -->
+                <div class="question-card" data-question="2">
+                    <div class="question-header">
+                        <span class="question-number">Question 2</span>
+                        <h2>What type of work environment helps you thrive?</h2>
+                        <p class="question-subtitle">Choose the one that best matches your preference</p>
+                    </div>
+                    <div class="options-grid radio-grid">
+                        <label class="option-card">
+                            <input type="radio" name="q2_environment" value="hands_on">
+                            <div class="option-content">
+                                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+                                </svg>
+                                <h4>Hands-on/Outdoor</h4>
+                                <p>Active, physical work environment</p>
+                            </div>
+                        </label>
+                        <label class="option-card">
+                            <input type="radio" name="q2_environment" value="laboratory">
+                            <div class="option-content">
+                                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M9 2v17.5A2.5 2.5 0 0 1 6.5 22v0A2.5 2.5 0 0 1 4 19.5V2"></path>
+                                    <path d="M20 2v17.5a2.5 2.5 0 0 1-2.5 2.5v0a2.5 2.5 0 0 1-2.5-2.5V2"></path>
+                                </svg>
+                                <h4>Laboratory/Research</h4>
+                                <p>Analytical, scientific setting</p>
+                            </div>
+                        </label>
+                        <label class="option-card">
+                            <input type="radio" name="q2_environment" value="creative_studio">
+                            <div class="option-content">
+                                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M12 19l7-7 3 3-7 7-3-3z"></path>
+                                    <path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"></path>
+                                </svg>
+                                <h4>Creative Studio</h4>
+                                <p>Freedom and artistic expression</p>
+                            </div>
+                        </label>
+                        <label class="option-card">
+                            <input type="radio" name="q2_environment" value="collaborative">
+                            <div class="option-content">
+                                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                                    <circle cx="9" cy="7" r="4"></circle>
+                                    <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                                    <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                                </svg>
+                                <h4>Collaborative Team</h4>
+                                <p>Working closely with others</p>
+                            </div>
+                        </label>
+                        <label class="option-card">
+                            <input type="radio" name="q2_environment" value="fast_paced">
+                            <div class="option-content">
+                                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+                                </svg>
+                                <h4>Fast-Paced</h4>
+                                <p>Competitive, dynamic atmosphere</p>
+                            </div>
+                        </label>
+                        <label class="option-card">
+                            <input type="radio" name="q2_environment" value="structured">
+                            <div class="option-content">
+                                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <rect x="3" y="3" width="18" height="18" rx="2"></rect>
+                                    <path d="M3 9h18M9 21V9"></path>
+                                </svg>
+                                <h4>Structured Office</h4>
+                                <p>Clear procedures and organization</p>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Question 3: Skills Rating -->
+                <div class="question-card" data-question="3">
+                    <div class="question-header">
+                        <span class="question-number">Question 3</span>
+                        <h2>Rate your confidence in these skill areas</h2>
+                        <p class="question-subtitle">1 = Beginner, 10 = Expert</p>
+                    </div>
+                    <div class="skills-container">
+                        <div class="skill-item">
+                            <div class="skill-header">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#6366F1" stroke-width="2">
+                                    <polyline points="16 18 22 12 16 6"></polyline>
+                                    <polyline points="8 6 2 12 8 18"></polyline>
+                                </svg>
+                                <span>Technical/Coding</span>
+                                <strong id="techValue">5</strong>
+                            </div>
+                            <input type="range" name="q3_technical_skill" min="1" max="10" value="5" class="skill-slider" data-target="techValue">
+                        </div>
+                        
+                        <div class="skill-item">
+                            <div class="skill-header">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#EC4899" stroke-width="2">
+                                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                                </svg>
+                                <span>Communication/Writing</span>
+                                <strong id="commValue">5</strong>
+                            </div>
+                            <input type="range" name="q3_communication_skill" min="1" max="10" value="5" class="skill-slider" data-target="commValue">
+                        </div>
+                        
+                        <div class="skill-item">
+                            <div class="skill-header">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#F59E0B" stroke-width="2">
+                                    <line x1="4" y1="9" x2="20" y2="9"></line>
+                                    <line x1="4" y1="15" x2="20" y2="15"></line>
+                                    <line x1="10" y1="3" x2="8" y2="21"></line>
+                                    <line x1="16" y1="3" x2="14" y2="21"></line>
+                                </svg>
+                                <span>Mathematical/Analytical</span>
+                                <strong id="mathValue">5</strong>
+                            </div>
+                            <input type="range" name="q3_math_skill" min="1" max="10" value="5" class="skill-slider" data-target="mathValue">
+                        </div>
+                        
+                        <div class="skill-item">
+                            <div class="skill-header">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2">
+                                    <path d="M12 19l7-7 3 3-7 7-3-3z"></path>
+                                    <path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"></path>
+                                </svg>
+                                <span>Creative/Design</span>
+                                <strong id="creativeValue">5</strong>
+                            </div>
+                            <input type="range" name="q3_creative_skill" min="1" max="10" value="5" class="skill-slider" data-target="creativeValue">
+                        </div>
+                        
+                        <div class="skill-item">
+                            <div class="skill-header">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#8B5CF6" stroke-width="2">
+                                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                                    <circle cx="9" cy="7" r="4"></circle>
+                                    <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                                    <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                                </svg>
+                                <span>Leadership/Management</span>
+                                <strong id="leaderValue">5</strong>
+                            </div>
+                            <input type="range" name="q3_leadership_skill" min="1" max="10" value="5" class="skill-slider" data-target="leaderValue">
+                        </div>
+                        
+                        <div class="skill-item">
+                            <div class="skill-header">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#06B6D4" stroke-width="2">
+                                    <polyline points="20 6 9 17 4 12"></polyline>
+                                </svg>
+                                <span>Attention to Detail</span>
+                                <strong id="detailValue">5</strong>
+                            </div>
+                            <input type="range" name="q3_detail_skill" min="1" max="10" value="5" class="skill-slider" data-target="detailValue">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question 4: Academic Subjects -->
+                <div class="question-card" data-question="4">
+                    <div class="question-header">
+                        <span class="question-number">Question 4</span>
+                        <h2>What are your strongest academic subjects?</h2>
+                        <p class="question-subtitle">Select up to 3 subjects</p>
+                    </div>
+                    <div class="options-grid checkbox-grid">
+                        <label class="option-card">
+                            <input type="checkbox" name="q4_academic_subjects" value="science" class="max-check-3">
+                            <div class="option-content">
+                                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M9 2v17.5A2.5 2.5 0 0 1 6.5 22v0A2.5 2.5 0 0 1 4 19.5V2"></path>
+                                    <path d="M20 2v17.5a2.5 2.5 0 0 1-2.5 2.5v0a2.5 2.5 0 0 1-2.5-2.5V2"></path>
+                                </svg>
+                                <h4>Science</h4>
+                            </div>
+                        </label>
+                        <label class="option-card">
+                            <input type="checkbox" name="q4_academic_subjects" value="math" class="max-check-3">
+                            <div class="option-content">
+                                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <line x1="4" y1="9" x2="20" y2="9"></line>
+                                    <line x1="4" y1="15" x2="20" y2="15"></line>
+                                    <line x1="10" y1="3" x2="8" y2="21"></line>
+                                    <line x1="16" y1="3" x2="14" y2="21"></line>
+                                </svg>
+                                <h4>Mathematics</h4>
+                            </div>
+                        </label>
+                        <label class="option-card">
+                            <input type="checkbox" name="q4_academic_subjects" value="languages" class="max-check-3">
+                            <div class="option-content">
+                                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+                                    <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+                                </svg>
+                                <h4>Languages</h4>
+                            </div>
+                        </label>
+                        <label class="option-card">
+                            <input type="checkbox" name="q4_academic_subjects" value="arts" class="max-check-3">
+                            <div class="option-content">
+                                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M12 19l7-7 3 3-7 7-3-3z"></path>
+                                    <path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"></path>
+                                </svg>
+                                <h4>Arts</h4>
+                            </div>
+                        </label>
+                        <label class="option-card">
+                            <input type="checkbox" name="q4_academic_subjects" value="business" class="max-check-3">
+                            <div class="option-content">
+                                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <line x1="12" y1="1" x2="12" y2="23"></line>
+                                    <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+                                </svg>
+                                <h4>Business</h4>
+                            </div>
+                        </label>
+                        <label class="option-card">
+                            <input type="checkbox" name="q4_academic_subjects" value="social_studies" class="max-check-3">
+                            <div class="option-content">
+                                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"></circle>
+                                    <line x1="2" y1="12" x2="22" y2="12"></line>
+                                    <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                                </svg>
+                                <h4>Social Studies</h4>
+                            </div>
+                        </label>
+                        <label class="option-card">
+                            <input type="checkbox" name="q4_academic_subjects" value="technology" class="max-check-3">
+                            <div class="option-content">
+                                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                                    <line x1="8" y1="21" x2="16" y2="21"></line>
+                                    <line x1="12" y1="17" x2="12" y2="21"></line>
+                                </svg>
+                                <h4>Technology</h4>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Question 5: Underutilized Skills -->
+                <div class="question-card" data-question="5">
+                    <div class="question-header">
+                        <span class="question-number">Question 5</span>
+                        <h2>Do you have skills that feel underutilized?</h2>
+                        <p class="question-subtitle">Tell us about talents you'd like to use more</p>
+                    </div>
+                    <div class="textarea-container">
+                        <textarea name="q5_underutilized_skills" rows="5" placeholder="Example: I'm great at public speaking but my current role doesn't allow me to use this skill..." maxlength="500"></textarea>
+                        <span class="char-count">0/500</span>
+                    </div>
+                </div>
+
+                                <!-- Question 6: Success Definition -->
+                <div class="question-card" data-question="6">
+                    <div class="question-header">
+                        <span class="question-number">Question 6</span>
+                        <h2>How do you define success in your career?</h2>
+                        <p class="question-subtitle">Choose what matters most to you</p>
+                    </div>
+                    <div class="options-grid radio-grid">
+                        <label class="option-card">
+                            <input type="radio" name="q6_success_definition" value="financial_security">
+                            <div class="option-content">
+                                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <line x1="12" y1="1" x2="12" y2="23"></line>
+                                    <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+                                </svg>
+                                <h4>Financial Security</h4>
+                                <p>High salary and stability</p>
+                            </div>
+                        </label>
+                        <label class="option-card">
+                            <input type="radio" name="q6_success_definition" value="work_life_balance">
+                            <div class="option-content">
+                                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"></circle>
+                                    <polyline points="12 6 12 12 16 14"></polyline>
+                                </svg>
+                                <h4>Work-Life Balance</h4>
+                                <p>Flexibility and personal time</p>
+                            </div>
+                        </label>
+                        <label class="option-card">
+                            <input type="radio" name="q6_success_definition" value="positive_impact">
+                            <div class="option-content">
+                                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                                    <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                                </svg>
+                                <h4>Making Impact</h4>
+                                <p>Positive change in society</p>
+                            </div>
+                        </label>
+                        <label class="option-card">
+                            <input type="radio" name="q6_success_definition" value="creative_expression">
+                            <div class="option-content">
+                                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M12 19l7-7 3 3-7 7-3-3z"></path>
+                                    <path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"></path>
+                                </svg>
+                                <h4>Creative Freedom</h4>
+                                <p>Innovation and expression</p>
+                            </div>
+                        </label>
+                        <label class="option-card">
+                            <input type="radio" name="q6_success_definition" value="leadership">
+                            <div class="option-content">
+                                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                                    <circle cx="8.5" cy="7" r="4"></circle>
+                                    <polyline points="17 11 19 13 23 9"></polyline>
+                                </svg>
+                                <h4>Recognition & Leadership</h4>
+                                <p>Leading teams and earning respect</p>
+                            </div>
+                        </label>
+                        <label class="option-card">
+                            <input type="radio" name="q6_success_definition" value="continuous_learning">
+                            <div class="option-content">
+                                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+                                    <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+                                </svg>
+                                <h4>Continuous Growth</h4>
+                                <p>Learning and expertise</p>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Question 7: Motivation -->
+                <div class="question-card" data-question="7">
+                    <div class="question-header">
+                        <span class="question-number">Question 7</span>
+                        <h2>What motivates you to excel professionally?</h2>
+                        <p class="question-subtitle">Select your primary motivator</p>
+                    </div>
+                    <div class="options-grid radio-grid">
+                        <label class="option-card">
+                            <input type="radio" name="q7_motivation" value="competition">
+                            <div class="option-content">
+                                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+                                </svg>
+                                <h4>Competition & Challenges</h4>
+                            </div>
+                        </label>
+                        <label class="option-card">
+                            <input type="radio" name="q7_motivation" value="helping_others">
+                            <div class="option-content">
+                                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                                </svg>
+                                <h4>Helping Others Succeed</h4>
+                            </div>
+                        </label>
+                        <label class="option-card">
+                            <input type="radio" name="q7_motivation" value="problem_solving">
+                            <div class="option-content">
+                                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="11" cy="11" r="8"></circle>
+                                    <path d="m21 21-4.35-4.35"></path>
+                                </svg>
+                                <h4>Solving Complex Problems</h4>
+                            </div>
+                        </label>
+                        <label class="option-card">
+                            <input type="radio" name="q7_motivation" value="creating">
+                            <div class="option-content">
+                                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+                                    <polyline points="2 17 12 22 22 17"></polyline>
+                                    <polyline points="2 12 12 17 22 12"></polyline>
+                                </svg>
+                                <h4>Creating Something New</h4>
+                            </div>
+                        </label>
+                        <label class="option-card">
+                            <input type="radio" name="q7_motivation" value="expertise">
+                            <div class="option-content">
+                                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                                </svg>
+                                <h4>Building Expertise</h4>
+                            </div>
+                        </label>
+                        <label class="option-card">
+                            <input type="radio" name="q7_motivation" value="rewards">
+                            <div class="option-content">
+                                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="8" r="7"></circle>
+                                    <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline>
+                                </svg>
+                                <h4>Rewards & Recognition</h4>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Question 8: Handle Setbacks -->
+                <div class="question-card" data-question="8">
+                    <div class="question-header">
+                        <span class="question-number">Question 8</span>
+                        <h2>How do you typically handle setbacks?</h2>
+                        <p class="question-subtitle">Choose your natural response</p>
+                    </div>
+                    <div class="options-grid radio-grid">
+                        <label class="option-card">
+                            <input type="radio" name="q8_handle_setbacks" value="analyze_retry">
+                            <div class="option-content">
+                                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0 1 18.8-4.3M22 12.5a10 10 0 0 1-18.8 4.2"></path>
+                                </svg>
+                                <h4>Analyze & Try Again</h4>
+                            </div>
+                        </label>
+                        <label class="option-card">
+                            <input type="radio" name="q8_handle_setbacks" value="seek_advice">
+                            <div class="option-content">
+                                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                                    <circle cx="9" cy="7" r="4"></circle>
+                                    <path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"></path>
+                                </svg>
+                                <h4>Seek Mentor Advice</h4>
+                            </div>
+                        </label>
+                        <label class="option-card">
+                            <input type="radio" name="q8_handle_setbacks" value="different_approach">
+                            <div class="option-content">
+                                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+                                </svg>
+                                <h4>Try Different Approach</h4>
+                            </div>
+                        </label>
+                        <label class="option-card">
+                            <input type="radio" name="q8_handle_setbacks" value="take_break">
+                            <div class="option-content">
+                                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"></circle>
+                                    <polyline points="12 6 12 12 16 14"></polyline>
+                                </svg>
+                                <h4>Take Break, Return Stronger</h4>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Question 9: Priorities -->
+                <div class="question-card" data-question="9">
+                    <div class="question-header">
+                        <span class="question-number">Question 9</span>
+                        <h2>Rank these factors by importance</h2>
+                        <p class="question-subtitle">1 = Most Important, 6 = Least Important</p>
+                    </div>
+                    <div class="ranking-container">
+                        <div class="ranking-item">
+                            <label>Salary Potential</label>
+                            <select name="q9_priorities_salary" class="ranking-select">
+                                <option value="">Rank...</option>
+                                <option value="1">1 - Most Important</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6 - Least Important</option>
+                            </select>
+                        </div>
+                        <div class="ranking-item">
+                            <label>Job Stability/Security</label>
+                            <select name="q9_priorities_stability" class="ranking-select">
+                                <option value="">Rank...</option>
+                                <option value="1">1 - Most Important</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6 - Least Important</option>
+                            </select>
+                        </div>
+                        <div class="ranking-item">
+                            <label>Flexibility/Remote Work</label>
+                            <select name="q9_priorities_flexibility" class="ranking-select">
+                                <option value="">Rank...</option>
+                                <option value="1">1 - Most Important</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6 - Least Important</option>
+                            </select>
+                        </div>
+                        <div class="ranking-item">
+                            <label>Career Growth Opportunities</label>
+                            <select name="q9_priorities_growth" class="ranking-select">
+                                <option value="">Rank...</option>
+                                <option value="1">1 - Most Important</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6 - Least Important</option>
+                            </select>
+                        </div>
+                        <div class="ranking-item">
+                            <label>Alignment with Personal Values</label>
+                            <select name="q9_priorities_values" class="ranking-select">
+                                <option value="">Rank...</option>
+                                <option value="1">1 - Most Important</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6 - Least Important</option>
+                            </select>
+                        </div>
+                        <div class="ranking-item">
+                            <label>Prestige/Reputation</label>
+                            <select name="q9_priorities_prestige" class="ranking-select">
+                                <option value="">Rank...</option>
+                                <option value="1">1 - Most Important</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6 - Least Important</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question 10: Work-Life Balance -->
+                <div class="question-card" data-question="10">
+                    <div class="question-header">
+                        <span class="question-number">Question 10</span>
+                        <h2>How important is work-life balance to you?</h2>
+                        <p class="question-subtitle">1 = Not Important, 10 = Very Critical</p>
+                    </div>
+                    <div class="single-slider-container">
+                        <div class="slider-labels">
+                            <span>Not Important</span>
+                            <strong id="balanceValue">5</strong>
+                            <span>Very Critical</span>
+                        </div>
+                        <input type="range" name="q10_work_life_balance" min="1" max="10" value="5" class="big-slider" data-target="balanceValue">
+                    </div>
+                </div>
+
+                <!-- Question 11: Mentorship -->
+                <div class="question-card" data-question="11">
+                    <div class="question-header">
+                        <span class="question-number">Question 11</span>
+                        <h2>What role does mentorship play in your career development?</h2>
+                        <p class="question-subtitle">Select one</p>
+                    </div>
+                    <div class="options-grid radio-grid">
+                        <label class="option-card">
+                            <input type="radio" name="q11_mentorship" value="essential">
+                            <div class="option-content">
+                                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                                </svg>
+                                <h4>Essential</h4>
+                                <p>I need guidance</p>
+                            </div>
+                        </label>
+                        <label class="option-card">
+                            <input type="radio" name="q11_mentorship" value="helpful">
+                            <div class="option-content">
+                                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"></path>
+                                </svg>
+                                <h4>Helpful</h4>
+                                <p>Nice to have</p>
+                            </div>
+                        </label>
+                        <label class="option-card">
+                            <input type="radio" name="q11_mentorship" value="not_needed">
+                            <div class="option-content">
+                                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                                    <circle cx="8.5" cy="7" r="4"></circle>
+                                    <polyline points="17 11 19 13 23 9"></polyline>
+                                </svg>
+                                <h4>Not Needed</h4>
+                                <p>I'm self-directed</p>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Question 12: Education Level -->
+                <div class="question-card" data-question="12">
+                    <div class="question-header">
+                        <span class="question-number">Question 12</span>
+                        <h2>What is your current education level?</h2>
+                        <p class="question-subtitle">Select the highest level completed</p>
+                    </div>
+                    <div class="options-grid radio-grid">
+                        <label class="option-card">
+                            <input type="radio" name="q12_education_level" value="high_school">
+                            <div class="option-content">
+                                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+                                    <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+                                </svg>
+                                <h4>High School</h4>
+                            </div>
+                        </label>
+                        <label class="option-card">
+                            <input type="radio" name="q12_education_level" value="bachelors">
+                            <div class="option-content">
+                                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 10v6M2 10l10-5 10 5-10 5z"></path>
+                                    <path d="M6 12v5c3 3 9 3 12 0v-5"></path>
+                                </svg>
+                                <h4>Bachelor's Degree</h4>
+                            </div>
+                        </label>
+                        <label class="option-card">
+                            <input type="radio" name="q12_education_level" value="masters">
+                            <div class="option-content">
+                                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 10v6M2 10l10-5 10 5-10 5z"></path>
+                                    <path d="M6 12v5c3 3 9 3 12 0v-5"></path>
+                                    <circle cx="12" cy="10" r="2"></circle>
+                                </svg>
+                                <h4>Master's Degree</h4>
+                            </div>
+                        </label>
+                        <label class="option-card">
+                            <input type="radio" name="q12_education_level" value="phd">
+                            <div class="option-content">
+                                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"></circle>
+                                    <path d="M12 16v-4M12 8h.01"></path>
+                                </svg>
+                                <h4>PhD / Doctorate</h4>
+                            </div>
+                        </label>
+                        <label class="option-card">
+                            <input type="radio" name="q12_education_level" value="self_taught">
+                            <div class="option-content">
+                                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                                    <line x1="8" y1="21" x2="16" y2="21"></line>
+                                    <line x1="12" y1="17" x2="12" y2="21"></line>
+                                </svg>
+                                <h4>Self-Taught</h4>
+                            </div>
+                        </label>
+                        <label class="option-card">
+                            <input type="radio" name="q12_education_level" value="other">
+                            <div class="option-content">
+                                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"></circle>
+                                    <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3M12 17h.01"></path>
+                                </svg>
+                                <h4>Other</h4>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Question 13: Additional Education -->
+                <div class="question-card" data-question="13">
+                    <div class="question-header">
+                        <span class="question-number">Question 13</span>
+                        <h2>Are you willing to pursue additional education or training?</h2>
+                        <p class="question-subtitle">Be honest about your commitment</p>
+                    </div>
+                    <div class="options-grid radio-grid">
+                        <label class="option-card">
+                            <input type="radio" name="q13_additional_education" value="yes_long_term">
+                            <div class="option-content">
+                                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 10v6M2 10l10-5 10 5-10 5z"></path>
+                                    <path d="M6 12v5c3 3 9 3 12 0v-5"></path>
+                                </svg>
+                                <h4>Yes, 2+ Years</h4>
+                                <p>Degree programs</p>
+                            </div>
+                        </label>
+                        <label class="option-card">
+                            <input type="radio" name="q13_additional_education" value="yes_short_courses">
+                            <div class="option-content">
+                                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
+                                    <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
+                                </svg>
+                                <h4>Short Courses Only</h4>
+                                <p>Certifications</p>
+                            </div>
+                        </label>
+                        <label class="option-card">
+                            <input type="radio" name="q13_additional_education" value="on_the_job">
+                            <div class="option-content">
+                                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path>
+                                </svg>
+                                <h4>On-the-Job Learning</h4>
+                                <p>Practical experience</p>
+                            </div>
+                        </label>
+                        <label class="option-card">
+                            <input type="radio" name="q13_additional_education" value="undecided">
+                            <div class="option-content">
+                                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"></circle>
+                                    <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3M12 17h.01"></path>
+                                </svg>
+                                <h4>Undecided</h4>
+                                <p>Need guidance</p>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Question 14: Career Aspirations -->
+                <div class="question-card" data-question="14">
+                    <div class="question-header">
+                        <span class="question-number">Question 14</span>
+                        <h2>What are your long-term career aspirations?</h2>
+                        <p class="question-subtitle">Describe your dream role in 5-10 years</p>
+                    </div>
+                    <div class="textarea-container">
+                        <textarea name="q14_career_aspirations" rows="5" placeholder="Example: I want to become a senior software engineer leading innovative AI projects at a tech company..." maxlength="500"></textarea>
+                        <span class="char-count">0/500</span>
+                    </div>
+                </div>
+
+                <!-- Question 15: Timeline -->
+                <div class="question-card" data-question="15">
+                    <div class="question-header">
+                        <span class="question-number">Question 15</span>
+                        <h2>When do you hope to transition into your ideal career?</h2>
+                        <p class="question-subtitle">Set realistic expectations</p>
+                    </div>
+                    <div class="options-grid radio-grid">
+                        <label class="option-card">
+                            <input type="radio" name="q15_transition_timeline" value="immediate">
+                            <div class="option-content">
+                                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+                                </svg>
+                                <h4>Immediately</h4>
+                                <p>0-6 months</p>
+                            </div>
+                        </label>
+                        <label class="option-card">
+                            <input type="radio" name="q15_transition_timeline" value="short_term">
+                            <div class="option-content">
+                                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"></circle>
+                                    <polyline points="12 6 12 12 16 14"></polyline>
+                                </svg>
+                                <h4>Short-Term</h4>
+                                <p>6 months - 2 years</p>
+                            </div>
+                        </label>
+                        <label class="option-card">
+                            <input type="radio" name="q15_transition_timeline" value="mid_term">
+                            <div class="option-content">
+                                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                                    <line x1="16" y1="2" x2="16" y2="6"></line>
+                                    <line x1="8" y1="2" x2="8" y2="6"></line>
+                                    <line x1="3" y1="10" x2="21" y2="10"></line>
+                                </svg>
+                                <h4>Mid-Term</h4>
+                                <p>2-5 years</p>
+                            </div>
+                        </label>
+                        <label class="option-card">
+                            <input type="radio" name="q15_transition_timeline" value="long_term">
+                            <div class="option-content">
+                                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+                                </svg>
+                                <h4>Long-Term</h4>
+                                <p>5+ years</p>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Navigation Buttons -->
+                <div class="question-navigation">
+                    <button type="button" class="btn-prev" id="prevBtn">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="19" y1="12" x2="5" y2="12"></line>
+                            <polyline points="12 19 5 12 12 5"></polyline>
+                        </svg>
+                        Previous
+                    </button>
+                    <button type="button" class="btn-next" id="nextBtn">
+                        Next
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                            <polyline points="12 5 19 12 12 19"></polyline>
+                        </svg>
+                    </button>
+                    <button type="submit" class="btn-submit-form" id="submitBtn" style="display:none;">
+                        Complete Assessment
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Auto-save Indicator -->
+        <div class="autosave-indicator" id="autosaveIndicator">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="20 6 9 17 4 12"></polyline>
+            </svg>
+            <span>Progress saved</span>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/questions.js') }}"></script>
+</body>
+</html>
