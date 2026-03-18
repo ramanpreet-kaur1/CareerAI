@@ -3157,3 +3157,113 @@ a {
         padding: 2rem;
     }
 }
+/* ============================================
+   MOBILE OVERFLOW FIX
+   ============================================ */
+
+html, body {
+    overflow-x: hidden;
+    max-width: 100%;
+}
+
+/* Fix navbar overflow */
+.nav-container {
+    padding: 1rem 1.25rem;
+}
+
+/* Fix hero section on mobile */
+@media (max-width: 768px) {
+    .hero {
+        padding: 3rem 1.25rem;
+        min-height: auto;
+    }
+
+    .hero-title {
+        font-size: 2rem;
+        letter-spacing: -1px;
+    }
+
+    .hero-subtitle {
+        font-size: 1rem;
+    }
+
+    .hero-stats {
+        gap: 1.25rem;
+        flex-wrap: wrap;
+    }
+
+    .stat-number {
+        font-size: 1.75rem;
+    }
+
+    .btn-hero-primary,
+    .btn-hero-secondary {
+        padding: 1rem 1.5rem;
+        font-size: 0.95rem;
+        width: 100%;
+        justify-content: center;
+    }
+
+    /* Prevent blob overflow */
+    .visual-bg {
+        display: none;
+    }
+
+    /* Fix sections padding */
+    .how-it-works,
+    .features,
+    .testimonials,
+    .cta {
+        padding: 4rem 1.25rem;
+    }
+
+    .section-title {
+        font-size: 1.75rem;
+    }
+
+    /* Fix CTA section */
+    .cta h2 {
+        font-size: 2rem;
+    }
+
+    .btn-cta {
+        padding: 1rem 2rem;
+        font-size: 1rem;
+        width: 100%;
+        justify-content: center;
+    }
+
+    /* Fix footer */
+    .footer {
+        padding: 2rem 1.25rem 1.5rem;
+    }
+
+    /* Fix dashboard */
+    .dashboard-content {
+        padding: 2rem 1.25rem;
+    }
+
+    .welcome-section h1 {
+        font-size: 2rem;
+    }
+
+    /* Fix auth pages */
+    .auth-box {
+        padding: 2rem 1.25rem;
+    }
+}
+
+/* Extra small screens (< 400px) */
+@media (max-width: 400px) {
+    .hero-title {
+        font-size: 1.75rem;
+    }
+
+    .nav-container {
+        padding: 0.75rem 1rem;
+    }
+
+    .logo-text {
+        font-size: 1.25rem;
+    }
+}
