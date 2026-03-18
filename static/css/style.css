@@ -39,6 +39,7 @@ body {
     background: var(--background);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    -webkit-text-size-adjust: 100%;
 }
 
 html {
@@ -49,7 +50,23 @@ a {
     text-decoration: none;
     color: inherit;
 }
+.container {
+    max-width: 100%;
+    padding: 0 1rem;
+    margin: 0 auto;
+}
+h1 { font-size: clamp(1.8rem, 6vw, 3rem); }
+h2 { font-size: clamp(1.4rem, 5vw, 2.2rem); }
+h3 { font-size: clamp(1.2rem, 4.5vw, 1.8rem); }
 
+.btn {
+    display: inline-block;
+    padding: 1rem 2rem;
+    font-size: 1rem;
+    border-radius: 12px;
+    text-decoration: none;
+    width: auto;
+}
 /* ============================================
    NAVBAR - Enhanced Design
    ============================================ */
@@ -3112,6 +3129,79 @@ a {
 
 /* Responsive */
 @media (max-width: 768px) {
+    /* Landing page hero section */
+    .hero-section {
+        padding: 2rem 1rem; /* Reduce padding on mobile */
+        text-align: center;
+    }
+
+    .hero-title {
+        font-size: clamp(1.5rem, 5vw, 2.5rem); /* Responsive font size */
+        line-height: 1.2;
+        margin-bottom: 1rem;
+        hyphens: auto; /* Better word breaking */
+    }
+
+    .hero-subtitle {
+        font-size: clamp(1rem, 4vw, 1.2rem);
+        max-width: 90%;
+        margin: 0 auto 2rem;
+    }
+
+    /* Mobile-first navigation */
+    .navbar {
+        padding: 1rem;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        background: rgba(255,255,255,0.95);
+        backdrop-filter: blur(10px);
+    }
+
+    .nav-links {
+        display: none; /* Hide on mobile */
+    }
+
+    .hamburger {
+        display: block;
+        font-size: 1.5rem;
+        background: none;
+        border: none;
+        cursor: pointer;
+    }
+
+    .mobile-menu {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 80%;
+        height: 100vh;
+        background: white;
+        transition: right 0.3s ease;
+        padding: 2rem;
+        box-shadow: -5px 0 20px rgba(0,0,0,0.1);
+    }
+
+    .mobile-menu.active {
+        right: 0;
+    }
+
+    /* Button fixes */
+    .get-started-btn {
+        display: inline-block;
+        width: auto;
+        min-width: 200px;
+        padding: 1rem 2rem;
+        font-size: 1.1rem;
+        border-radius: 12px;
+        margin: 0.5rem auto;
+        display: table; /* Prevents full-width stretch */
+    }
+
+    .info-card {
+        padding: 1rem;
+        margin-bottom: 1rem;
+    }
     .results-content {
         padding: 2rem 1rem;
     }
@@ -3155,5 +3245,39 @@ a {
     
     .advice-card {
         padding: 2rem;
+    }
+    /* Form responsiveness */
+    .form-container {
+        max-width: 100%;
+        padding: 2rem 1rem;
+        margin: 0 auto;
+    }
+
+    .form-group {
+        margin-bottom: 1.5rem;
+    }
+
+    .form-input {
+        width: 100%;
+        padding: 1rem;
+        font-size: 1rem;
+        border: 2px solid #e2e8f0;
+        border-radius: 12px;
+        box-sizing: border-box; /* Include padding in width */
+    }
+
+    .form-label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-weight: 600;
+        font-size: 0.95rem;
+    }
+
+    /* Buttons in forms */
+    .form-btn {
+        width: 100%;
+        padding: 1.2rem;
+        font-size: 1.1rem;
+        border-radius: 12px;
     }
 }
