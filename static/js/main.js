@@ -45,14 +45,3 @@ document.querySelectorAll('.feature-card, .step, .testimonial-card').forEach(el 
     observer.observe(el);
 });
 
-// Mobile menu toggle
-document.querySelector('.hamburger').addEventListener('click', function() {
-    document.querySelector('.mobile-menu').classList.toggle('active');
-});
-
-// Close menu when clicking link
-document.querySelectorAll('.mobile-menu a').forEach(link => {
-    link.addEventListener('click', () => {
-        document.querySelector('.mobile-menu').classList.remove('active');
-    });
-});
